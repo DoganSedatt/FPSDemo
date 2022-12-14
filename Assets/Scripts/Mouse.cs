@@ -5,7 +5,7 @@ using UnityEngine;
 public class Mouse : MonoBehaviour
 {
     public Transform player;//Player transformu
-    float mouseSens = 200f;//Mouse hassasiyeti
+    float mouseSens = 300f;//Mouse hassasiyeti
     private float xRotation;
     private void Awake()
     {
