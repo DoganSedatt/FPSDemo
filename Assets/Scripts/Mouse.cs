@@ -7,12 +7,12 @@ public class Mouse : MonoBehaviour
     public Transform player;//Player transformu
     float mouseSens = 200f;//Mouse hassasiyeti
     private float xRotation;
-    void Start()
+    private void Awake()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-   
+
     void Update()
     {
         float MouseX = Input.GetAxis("Mouse X")*mouseSens*Time.deltaTime;
