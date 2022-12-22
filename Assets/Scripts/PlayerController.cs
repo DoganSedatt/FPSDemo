@@ -6,8 +6,15 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController characterController;
     public float speed = 5f;
-    public float gravity = -9.81f;//Yerçekimi deðeri
+    public float gravity = -14f;//Yerçekimi deðeri
     private Vector3 gravityVector;//Yerçekimi vektörü
+
+    //GroundCheck
+    public Transform groundCheckPoint;
+    public float groundCheckRadius = 0.35f;
+    public LayerMask groundLayer;
+    public bool isGrounded = false;
+    float jumpSpeed = 5f;
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -21,5 +28,16 @@ public class PlayerController : MonoBehaviour
 
         gravityVector.y += gravity * Time.deltaTime;//gravity deðerini gravityVector.y deðerine eþitledik. Ancak bu deðer her saniye -9.81 artarak devam ediyor.
         characterController.Move(gravityVector * Time.deltaTime);
+
+        isGrounded = Physics.CheckSphere(groundCheckPoint.position, groundCheckRadius, groundLayer);//Yer kontrolü
+        if (isGrounded && gravityVector.y < 0)
+        {
+            gravityVector.y = -3f;
+        }
+
+        if(isGrounded&& Input.GetButtonDown("Jump"))
+        {
+            gravityVector.y = jumpSpeed;
+        }
     }
 }
