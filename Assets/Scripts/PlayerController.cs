@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController characterController;
+    public int playerHealth = 100;
     public float speed = 5f;
     public float gravity = -14f;//Yerçekimi deðeri
     private Vector3 gravityVector;//Yerçekimi vektörü
-
+    
     //GroundCheck
     public Transform groundCheckPoint;
     public float groundCheckRadius = 0.35f;
@@ -52,5 +53,19 @@ public class PlayerController : MonoBehaviour
         {
             gravityVector.y = jumpSpeed;
         }
+    }
+
+    void PlayerTakeDamage(int damageAmount)
+    {//Player hasar yeme metodu
+        playerHealth -= damageAmount;
+
+        if (playerHealth <= 0)
+        {
+            PlayerDeath();
+        }
+    }
+    void PlayerDeath()//Player ölme metodu
+    {
+        //Ölme animasyonunu çalýþtýr ve sahneyi tekrar yükle
     }
 }
