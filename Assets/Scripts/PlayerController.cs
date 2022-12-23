@@ -23,19 +23,32 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MovePlayer();
+        GroundCheck();
+        JumpAndGravity();
+    }
+    void MovePlayer()
+    {
         Vector3 move = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;//Ýleri-geri ve yatay hareket girdisi.
         characterController.Move(move * speed * Time.deltaTime);//karakter kontrolcüsüne vector3 tipinde bir hareket deðeri veriyoruz sonra onu hýz ve zaman ile çarpýyoruz.
+    }
 
+    void GroundCheck()
+    {
+        isGrounded = Physics.CheckSphere(groundCheckPoint.position, groundCheckRadius, groundLayer);//Yer kontrolü
+    }
+    void JumpAndGravity()
+    {
         gravityVector.y += gravity * Time.deltaTime;//gravity deðerini gravityVector.y deðerine eþitledik. Ancak bu deðer her saniye -9.81 artarak devam ediyor.
         characterController.Move(gravityVector * Time.deltaTime);
 
-        isGrounded = Physics.CheckSphere(groundCheckPoint.position, groundCheckRadius, groundLayer);//Yer kontrolü
+
         if (isGrounded && gravityVector.y < 0)
         {
             gravityVector.y = -3f;
         }
 
-        if(isGrounded&& Input.GetButtonDown("Jump"))
+        if (isGrounded && Input.GetButtonDown("Jump"))
         {
             gravityVector.y = jumpSpeed;
         }
