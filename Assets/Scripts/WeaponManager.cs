@@ -8,6 +8,7 @@ public class WeaponManager : MonoBehaviour
     public Camera playerCamera;
     public float range = 300f;
     private EnemyManager enemyManager;//EnemyManager scriptine eriþmek için
+    public ParticleSystem muzzleEffect;
     void Start()
     {
         
@@ -19,6 +20,7 @@ public class WeaponManager : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Fire();
+            muzzleEffect.Play();
         }
     }
 
@@ -31,6 +33,7 @@ public class WeaponManager : MonoBehaviour
             enemyManager = hit.transform.GetComponent<EnemyManager>();//Vurulan hedefin içindeki EnemyManager scriptini al deðiþkene at. Onun üstünden iþlem yapacaðýz.
             if (enemyManager != null)
             {
+                
                 //Eðer enemyManager deðiþkeni boþ deðilse yani vurulan hedefte enemyManager scripti mevcut ise
                 int rng = Random.Range(minDamage, maxDamage);
                 enemyManager.EnemyTakeDamage(rng);
