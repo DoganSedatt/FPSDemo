@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour
         
     }
 
-    void EnemyTakeDamage(int damageAmount)
+    public void EnemyTakeDamage(int damageAmount)
     {
         enemyHealth -= damageAmount;
         if (enemyHealth <= 0)
