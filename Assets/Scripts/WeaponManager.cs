@@ -10,6 +10,7 @@ public class WeaponManager : MonoBehaviour
     private EnemyManager enemyManager;//EnemyManager scriptine eriþmek için
     public ParticleSystem muzzleEffect;//Namlu ateþi efekti
     public AudioSource fireSound;//Ateþ etme sesi
+    public GameObject impactEffect;
     void Start()
     {
      
@@ -33,6 +34,8 @@ public class WeaponManager : MonoBehaviour
         {//playerCamera çýkýþ noktasýndan playerCameranýn forward yönüne doðru range miktarý mesafesinde ýþýn oluþturur.
             //Debug.Log(hit.transform.name);
             enemyManager = hit.transform.GetComponent<EnemyManager>();//Vurulan hedefin içindeki EnemyManager scriptini al deðiþkene at. Onun üstünden iþlem yapacaðýz.
+            Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            //impactEffect'i hit.point(ýþýnýn çarptýðý nokta,obje) noktasýnda oluþtur. Ve o nokta üzerinde yönü bize dönük olarak oluþtur.
             if (enemyManager != null)
             {
                 
