@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public float groundCheckRadius = 0.35f;
     public LayerMask groundLayer;
     public bool isGrounded = false;
-    float jumpSpeed = 5f;
+    public float jumpSpeed = 5f;
     void Start()
     {
         characterController = GetComponent<CharacterController>();
