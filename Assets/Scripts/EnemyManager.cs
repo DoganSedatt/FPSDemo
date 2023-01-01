@@ -37,6 +37,7 @@ public class EnemyManager : MonoBehaviour
         if (!enemyAttackRange && !enemySightRange)
         {//Player,atak ve görüþ aralýðýnda deðil ise;
             //Düþman burada devriye(patrol) hareketini yapacak.
+            Patrolling();
         }
         else if (!enemyAttackRange && enemySightRange)
         {
@@ -47,6 +48,34 @@ public class EnemyManager : MonoBehaviour
         {
             //Player hem atak hem de görüþ aralýðýnda ise;
             //Düþman player'a saldýracak.
+        }
+    }
+    void Patrolling()
+    {
+        //Düþmanýn devriye gezme metodu
+        if (walkPointSet == false)
+        {
+            float randomZPos = Random.Range(-walkPointRange, walkPointRange);
+            float randomXPos = Random.Range(-walkPointRange, walkPointRange);
+            walkPoint = new Vector3(transform.position.x + randomXPos, transform.position.y, transform.position.z + randomZPos);
+
+            if (Physics.Raycast(walkPoint, -transform.up, 2f, groundLayerMask))
+            {
+                //walkPoint noktasýndan zemine bir ýþýn gönderiyoruz. Zemin tespiti için. Eðer düþman objesi zeminin üzerinde ise;
+                walkPointSet = true;
+            }
+            if (walkPointSet == true)
+            {
+                enemyAgent.SetDestination(walkPoint); //Düþman objemizin walkPoint noktasýna gitmesini söylemiþ olduk.
+
+            }
+            Vector3 distanceToWalkpoint = transform.position - walkPoint;//walkPoint'e olan mesafeyi vector3 cinsinden tutuyor
+
+            if (distanceToWalkpoint.magnitude < 1f)
+            {
+                //walkPoint'e olan mesafe 1f'den küçükse;
+                walkPointSet = false;
+            }
         }
     }
 
