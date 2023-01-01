@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
         GroundCheck();
         JumpAndGravity();
+        Debug.Log(playerHealth);
     }
     void MovePlayer()
     {
@@ -55,7 +56,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void PlayerTakeDamage(int damageAmount)
+    public void PlayerTakeDamage(int damageAmount)
     {//Player hasar yeme metodu
         playerHealth -= damageAmount;
 

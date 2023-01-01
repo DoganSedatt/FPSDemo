@@ -24,6 +24,9 @@ public class EnemyManager : MonoBehaviour
     //Attacking
     public float attackDelay;//Saldýrý gecikmesi.Belirli aralýklarla saldýrý yapmasý için
     public bool isAttacking;//Atak modunda olup olmadýðýný kontrol edecek
+    public GameObject projectTile;//Düþmanýn player'a hasar vermek için atacaðý nesne  
+    public Transform attackPointTransform;//Bu nesnenin çýkýþ pozisyonu
+    public float projectTileForceValue;//Uygulanacak kuvvetin deðerini public deðiþkenle belirliyoruz
     void Start()
     {
         enemyAgent = GetComponent<NavMeshAgent>();
@@ -100,6 +103,12 @@ public class EnemyManager : MonoBehaviour
 
         if (isAttacking == false)
         {//Player objemiz attackRange mesafesine gelmiþ ve düþman objesi saldýrý modunda deðilse; 
+
+            Rigidbody projectTileRb = Instantiate(projectTile, attackPointTransform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            //attackPoint pozisyonundan çýkan bir projectTile nesnesi oluþtur ve onun rigidbodysine eriþ.
+            projectTileRb.AddForce(transform.forward * projectTileForceValue, ForceMode.Impulse);
+            //Daha sonra ona kuvvet uygula
+
             isAttacking = true;//Atak modunu aç
             Invoke("ResetAttack", attackDelay);
             //Invoke ile bir metodu belli aralýkla çalýþtýrýyoruz. Bu da belirlediðimiz attackDelay süresine baðlý olarak atak modunu açýp kapatýyor. Yani her attackDelay saniyede player'a saldýrý gerçekleþtiriyoruz. 
