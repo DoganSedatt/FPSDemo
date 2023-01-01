@@ -70,18 +70,19 @@ public class EnemyManager : MonoBehaviour
                 //walkPoint noktasýndan zemine bir ýþýn gönderiyoruz. Zemin tespiti için. Eðer düþman objesi zeminin üzerinde ise;
                 walkPointSet = true;
             }
-            if (walkPointSet == true)
-            {
-                enemyAgent.SetDestination(walkPoint); //Düþman objemizin walkPoint noktasýna gitmesini söylemiþ olduk.
+            
+        }
+        if (walkPointSet == true)
+        {
+            enemyAgent.SetDestination(walkPoint); //Düþman objemizin walkPoint noktasýna gitmesini söylemiþ olduk.
 
-            }
-            Vector3 distanceToWalkpoint = transform.position - walkPoint;//walkPoint'e olan mesafeyi vector3 cinsinden tutuyor
+        }
+        Vector3 distanceToWalkpoint = transform.position - walkPoint;//walkPoint'e olan mesafeyi vector3 cinsinden tutuyor
 
-            if (distanceToWalkpoint.magnitude < 1f)
-            {
-                //walkPoint'e olan mesafe 1f'den küçükse;
-                walkPointSet = false;
-            }
+        if (distanceToWalkpoint.magnitude < 1f)
+        {
+            //walkPoint'e olan mesafe 1f'den küçükse;
+            walkPointSet = false;
         }
     }
 
@@ -122,6 +123,15 @@ public class EnemyManager : MonoBehaviour
         //Düþman objesini yok et
         Destroy(this.gameObject);
 
+    }
+    private void OnDrawGizmosSelected()
+    {//Gizmolarý görmek için 
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, sightRange);//Tespit mesafesi gizmosu 
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);//Atak mesafesi gizmosu
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(walkPoint, walkPointRange);//WalkPoint gizmosu
     }
 }
 
