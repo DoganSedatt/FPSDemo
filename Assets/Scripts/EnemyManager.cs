@@ -20,6 +20,10 @@ public class EnemyManager : MonoBehaviour
     //Bizi görüp yaklaþmasýný ve atak yapmasýný kontrol eden deðiþkenler
     public float sightRange, attackRange;//Float tipinde görüþ aralýðý ve atak aralýðý deðiþkenleri
     public bool enemySightRange, enemyAttackRange;//Görüþ aralýðý veya atak aralýðýnda olup olmadýðýmýzý kontrol edecek bool deðiþkenler
+
+    //Attacking
+    public float attackDelay;//Saldýrý gecikmesi.Belirli aralýklarla saldýrý yapmasý için
+    public bool isAttacking;//Atak modunda olup olmadýðýný kontrol edecek
     void Start()
     {
         enemyAgent = GetComponent<NavMeshAgent>();
@@ -77,6 +81,12 @@ public class EnemyManager : MonoBehaviour
                 walkPointSet = false;
             }
         }
+    }
+
+    void DetectPlayer()//Player'ýn düþman tarafýndan tespiti sonrasýnda yapýlacaklar
+    {
+        enemyAgent.SetDestination(playerTransform.position);//Düþman player objemize doðru gelecek
+        transform.LookAt(playerTransform);//Düþmanýn yönü player objemize doðru olacak
     }
 
     public void EnemyTakeDamage(int damageAmount)
