@@ -47,11 +47,13 @@ public class EnemyManager : MonoBehaviour
         {
             //Player, atak aralýðýnda deðil ancak görüþ aralýðýnda ise;
             //Düþman player'ý algýlayýp ona göre hareket edecek
+            DetectPlayer();
         }
         else if (enemyAttackRange && enemySightRange)
         {
             //Player hem atak hem de görüþ aralýðýnda ise;
             //Düþman player'a saldýracak.
+            AttackPlayer();
         }
     }
     void Patrolling()
@@ -89,6 +91,23 @@ public class EnemyManager : MonoBehaviour
         transform.LookAt(playerTransform);//Düþmanýn yönü player objemize doðru olacak
     }
 
+    void AttackPlayer()//Düþmanýn player'a saldýrmasý
+    {
+        enemyAgent.SetDestination(transform.position);
+        //Player objemiz düþmanýn attackRange mesafesine geldikten sonra düþman objesi artýk player'ýn deðil kendi transformunun pzoisyon deðerlerine gidecek
+        transform.LookAt(playerTransform);//Yine player'a dönük olmasý saðlanýyor
+
+        if (isAttacking == false)
+        {//Player objemiz attackRange mesafesine gelmiþ ve düþman objesi saldýrý modunda deðilse; 
+            isAttacking = true;//Atak modunu aç
+            Invoke("ResetAttack", attackDelay);
+            //Invoke ile bir metodu belli aralýkla çalýþtýrýyoruz. Bu da belirlediðimiz attackDelay süresine baðlý olarak atak modunu açýp kapatýyor. Yani her attackDelay saniyede player'a saldýrý gerçekleþtiriyoruz. 
+        }
+    }
+    void ResetAttack()
+    {
+        isAttacking = false;
+    }
     public void EnemyTakeDamage(int damageAmount)
     {//Düþman hasar yeme fonksiyonu
         enemyHealth -= damageAmount;//Yenen hasar miktarýný düþmanýn canýndan çýkar.
