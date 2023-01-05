@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] CharacterController characterController;
-    public int playerHealth = 100;
+    CharacterController characterController;
+    public int playerHealth;
     public float speed = 5f;
     public float gravity = -14f;//Yerçekimi deðeri
     private Vector3 gravityVector;//Yerçekimi vektörü
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
         GroundCheck();
         JumpAndGravity();
-        Debug.Log(playerHealth);
+        //Debug.Log(playerHealth);
     }
     void MovePlayer()
     {
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     public void PlayerTakeDamage(int damageAmount)
     {//Player hasar yeme metodu
         playerHealth -= damageAmount;
-
+        Debug.Log(damageAmount + " hasar yedi");
         if (playerHealth <= 0)
         {
             PlayerDeath();
@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
     }
     void PlayerDeath()//Player ölme metodu
     {
-        //Ölme animasyonunu çalýþtýr ve sahneyi tekrar yükle
+        Destroy(this.gameObject);
+        Debug.Log("Can deðeri: " + playerHealth );
     }
 }
