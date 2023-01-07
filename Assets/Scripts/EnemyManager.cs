@@ -63,6 +63,7 @@ public class EnemyManager : MonoBehaviour
     }
     void Patrolling()
     {
+        //Walk animasyonunu aktif, detect ve attack animasyonunu pasif hale getir
         anim.SetBool("walkAnim", true);
         anim.SetBool("detectAnim", false);
         anim.SetBool("attackAnim", false);
@@ -98,7 +99,9 @@ public class EnemyManager : MonoBehaviour
     {
         enemyAgent.SetDestination(playerTransform.position);//Düþman player objemize doðru gelecek
         transform.LookAt(playerTransform);//Düþmanýn yönü player objemize doðru olacak
-        anim.SetBool("detectAnim", true);//Detecting animasyonu aktif,walking animasyonunu pasif hale getir
+
+        //Detect animasyonu aktif,walk ve attack animasyonunu pasif hale getir
+        anim.SetBool("detectAnim", true);
         anim.SetBool("walkAnim", false);
         anim.SetBool("attackAnim", false);
     }
@@ -114,6 +117,8 @@ public class EnemyManager : MonoBehaviour
             anim.SetBool("walkAnim", false);
             anim.SetBool("detectAnim",false);
             anim.SetBool("attackAnim", true);
+            //Attack animasyonunu aktif, walk ve detect animasyonunu pasif hale getir
+
             Rigidbody projectTileRb = Instantiate(projectTile, attackPointTransform.position, Quaternion.identity).GetComponent<Rigidbody>();
             //attackPoint pozisyonundan çýkan bir projectTile nesnesi oluþtur ve onun rigidbodysine eriþ.
             projectTileRb.AddForce(transform.forward * projectTileForceValue, ForceMode.Impulse);
