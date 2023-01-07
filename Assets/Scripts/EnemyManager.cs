@@ -65,6 +65,7 @@ public class EnemyManager : MonoBehaviour
     {
         anim.SetBool("walkAnim", true);
         anim.SetBool("detectAnim", false);
+        anim.SetBool("attackAnim", false);
         //Düþmanýn devriye gezme metodu
         if (walkPointSet == false)
         {
@@ -99,6 +100,7 @@ public class EnemyManager : MonoBehaviour
         transform.LookAt(playerTransform);//Düþmanýn yönü player objemize doðru olacak
         anim.SetBool("detectAnim", true);//Detecting animasyonu aktif,walking animasyonunu pasif hale getir
         anim.SetBool("walkAnim", false);
+        anim.SetBool("attackAnim", false);
     }
 
     void AttackPlayer()//Düþmanýn player'a saldýrmasý
