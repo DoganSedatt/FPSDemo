@@ -119,15 +119,20 @@ public class EnemyManager : MonoBehaviour
             anim.SetBool("attackAnim", true);
             //Attack animasyonunu aktif, walk ve detect animasyonunu pasif hale getir
 
-            Rigidbody projectTileRb = Instantiate(projectTile, attackPointTransform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            //attackPoint pozisyonundan çýkan bir projectTile nesnesi oluþtur ve onun rigidbodysine eriþ.
-            projectTileRb.AddForce(transform.forward * projectTileForceValue, ForceMode.Impulse);
-            //Daha sonra ona kuvvet uygula
-
-            isAttacking = true;//Atak modunu aç
-            Invoke("ResetAttack", attackDelay);
-            //Invoke ile bir metodu belli aralýkla çalýþtýrýyoruz. Bu da belirlediðimiz attackDelay süresine baðlý olarak atak modunu açýp kapatýyor. Yani her attackDelay saniyede player'a saldýrý gerçekleþtiriyoruz. 
+            
         }
+    }
+    void AnimatedAttack()
+    {
+        //Attack animasyonuna baðlý çalýþan projectTile(Player'a hasar veren obje) üretme
+        Rigidbody projectTileRb = Instantiate(projectTile, attackPointTransform.position, Quaternion.identity).GetComponent<Rigidbody>();
+        //attackPoint pozisyonundan çýkan bir projectTile nesnesi oluþtur ve onun rigidbodysine eriþ.
+        projectTileRb.AddForce(transform.forward * projectTileForceValue, ForceMode.Impulse);
+        //Daha sonra ona kuvvet uygula
+
+        isAttacking = true;//Atak modunu aç
+        Invoke("ResetAttack", attackDelay);
+        //Invoke ile bir metodu belli aralýkla çalýþtýrýyoruz. Bu da belirlediðimiz attackDelay süresine baðlý olarak atak modunu açýp kapatýyor. Yani her attackDelay saniyede player'a saldýrý gerçekleþtiriyoruz. 
     }
     void ResetAttack()
     {
