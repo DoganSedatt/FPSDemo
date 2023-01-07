@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class EnemyManager : MonoBehaviour
 {
     public int enemyHealth = 200;
+    Animator anim;
 
     //NavMesh
     public NavMeshAgent enemyAgent;//Düþmanýn navmesh'ini tutacak deðiþken
@@ -31,6 +32,7 @@ public class EnemyManager : MonoBehaviour
     {
         enemyAgent = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.Find("Player").transform;
+        anim = GetComponent<Animator>();
     }
 
     
@@ -61,6 +63,8 @@ public class EnemyManager : MonoBehaviour
     }
     void Patrolling()
     {
+        anim.SetBool("walkAnim", true);
+        anim.SetBool("detectAnim", false);
         //Düþmanýn devriye gezme metodu
         if (walkPointSet == false)
         {
@@ -93,6 +97,8 @@ public class EnemyManager : MonoBehaviour
     {
         enemyAgent.SetDestination(playerTransform.position);//Düþman player objemize doðru gelecek
         transform.LookAt(playerTransform);//Düþmanýn yönü player objemize doðru olacak
+        anim.SetBool("detectAnim", true);//Detecting animasyonu aktif,walking animasyonunu pasif hale getir
+        anim.SetBool("walkAnim", false);
     }
 
     void AttackPlayer()//Düþmanýn player'a saldýrmasý
@@ -103,7 +109,9 @@ public class EnemyManager : MonoBehaviour
 
         if (isAttacking == false)
         {//Player objemiz attackRange mesafesine gelmiþ ve düþman objesi saldýrý modunda deðilse; 
-
+            anim.SetBool("walkAnim", false);
+            anim.SetBool("detectAnim",false);
+            anim.SetBool("attackAnim", true);
             Rigidbody projectTileRb = Instantiate(projectTile, attackPointTransform.position, Quaternion.identity).GetComponent<Rigidbody>();
             //attackPoint pozisyonundan çýkan bir projectTile nesnesi oluþtur ve onun rigidbodysine eriþ.
             projectTileRb.AddForce(transform.forward * projectTileForceValue, ForceMode.Impulse);
