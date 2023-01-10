@@ -16,7 +16,7 @@ public class EnemyProjectTile : MonoBehaviour
             PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
             Debug.Log(this.gameObject.name + " objesi" + " " + other.transform.tag + " e çarptý");
             playerController.PlayerTakeDamage(enemyDamageAmount);
-            Destroy(this.transform.gameObject,1);
+            Destroy(this.transform.gameObject);
         }
         else
         {

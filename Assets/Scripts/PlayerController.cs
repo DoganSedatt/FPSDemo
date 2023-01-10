@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour
     }
     void PlayerDeath()//Player ölme metodu
     {
-        Destroy(this.gameObject);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);//Player olunca aktif sahneyi tekrar yükle
         Debug.Log("Can deðeri: " + playerHealth );
     }
 }
