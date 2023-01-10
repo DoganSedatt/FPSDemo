@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public bool isGrounded = false;
     public float jumpSpeed = 5f;
+
+    //UI
+    public Slider playerHealthSlider;
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -60,9 +64,12 @@ public class PlayerController : MonoBehaviour
     public void PlayerTakeDamage(int damageAmount)
     {//Player hasar yeme metodu
         playerHealth -= damageAmount;
+        //playerHealthSlider.value = playerHealth;
+        playerHealthSlider.value -= damageAmount;
         Debug.Log(damageAmount + " hasar yedi");
         if (playerHealth <= 0)
         {
+            playerHealthSlider.value = 0;
             PlayerDeath();
         }
     }
