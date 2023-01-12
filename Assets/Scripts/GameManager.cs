@@ -6,16 +6,20 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public GameObject menuPanel;//Oyun içi duraklat menüsü
+    public GameObject weaponScript;
     bool isPauseGame = false;//Oyunun durup durmadýðýný kontrol eden deðiþken
+   
     void StopGame()
     {//Oyunu durdur ve duraklat menüsünü aç metodu
         menuPanel.SetActive(true);
         Time.timeScale = 0;
+        weaponScript.SetActive(false);
     }
     void ResumeGame()
     {//Oyunu sürdür ve duraklat menüsünü kapat metodu
         Time.timeScale = 1;
         menuPanel.SetActive(false);
+        weaponScript.SetActive(true);
     }
     private void Update()
     {
