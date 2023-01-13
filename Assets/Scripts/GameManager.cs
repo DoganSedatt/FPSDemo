@@ -9,17 +9,33 @@ public class GameManager : MonoBehaviour
     public GameObject weaponScript;
     bool isPauseGame = false;//Oyunun durup durmadýðýný kontrol eden deðiþken
    
-    void StopGame()
+    public void StopGame()
     {//Oyunu durdur ve duraklat menüsünü aç metodu
         menuPanel.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;//Fare imlecini ekranda gösterir
         Time.timeScale = 0;
         weaponScript.SetActive(false);
+        isPauseGame = true;
     }
-    void ResumeGame()
+    public void ResumeGame()
     {//Oyunu sürdür ve duraklat menüsünü kapat metodu
         Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;//Fare imlecini kaldýrýr
         menuPanel.SetActive(false);
         weaponScript.SetActive(true);
+        isPauseGame = false;
+    }
+    public void GetSettings()
+    {
+        Debug.Log("Ayarlar penceresii!");
+    }
+    public void GetMainMenu()
+    {
+        Debug.Log("Ana menü!");
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
     private void Update()
     {
