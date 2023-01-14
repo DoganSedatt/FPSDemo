@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
     public float gravity = -14f;//Yerçekimi deðeri
     private Vector3 gravityVector;//Yerçekimi vektörü
-    
+    public GameObject flashLight;
+    private bool isflashLightOpen=false;
     //GroundCheck
     public Transform groundCheckPoint;
     public float groundCheckRadius = 0.35f;
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
         GroundCheck();
         JumpAndGravity();
         //Debug.Log(playerHealth);
+        FlashLightOpen();
     }
     void MovePlayer()
     {
@@ -77,5 +79,21 @@ public class PlayerController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);//Player olunca aktif sahneyi tekrar yükle
         Debug.Log("Can deðeri: " + playerHealth );
+    }
+
+    void FlashLightOpen()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            isflashLightOpen = !isflashLightOpen;
+        }
+        if (isflashLightOpen)
+        {
+            flashLight.SetActive(false);
+        }
+        else
+        {
+            flashLight.SetActive(true);
+        }
     }
 }
