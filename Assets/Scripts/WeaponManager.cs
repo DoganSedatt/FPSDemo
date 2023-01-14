@@ -10,7 +10,7 @@ public class WeaponManager : MonoBehaviour
     private EnemyManager enemyManager;//EnemyManager scriptine eriþmek için
     public ParticleSystem muzzleEffect;//Namlu ateþi efekti
     public AudioSource fireSound;//Ateþ etme sesi
-    public GameObject impactEffect;
+    public GameObject impactEffect;//Kurþun izi efekti
     void Start()
     {
      
@@ -34,11 +34,11 @@ public class WeaponManager : MonoBehaviour
         {//playerCamera çýkýþ noktasýndan playerCameranýn forward yönüne doðru range miktarý mesafesinde ýþýn oluþturur.
             //Debug.Log(hit.transform.name);
             enemyManager = hit.transform.GetComponent<EnemyManager>();//Vurulan hedefin içindeki EnemyManager scriptini al deðiþkene at. Onun üstünden iþlem yapacaðýz.
-            Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            GameObject impacteffect=Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));//Kurþun izi efekti oluþtu ve onu yeni deðiþkende tut 
+            Destroy(impacteffect, 3f);//Oluþan kurþun efektini 3 saniyede yok et. Burada ana efekti deðilde deðiþkene atanana efekti yok ediyoruz. Hata almamak için 
             //impactEffect'i hit.point(ýþýnýn çarptýðý nokta,obje) noktasýnda oluþtur. Ve o nokta üzerinde yönü bize dönük olarak oluþtur.
             if (enemyManager != null)
             {
-                
                 //Eðer enemyManager deðiþkeni boþ deðilse yani vurulan hedefte enemyManager scripti mevcut ise
                 int rng = Random.Range(minDamage, maxDamage);
                 enemyManager.EnemyTakeDamage(rng);
