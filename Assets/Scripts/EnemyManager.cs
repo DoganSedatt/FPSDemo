@@ -150,7 +150,10 @@ public class EnemyManager : MonoBehaviour
     void EnemyHealth()
     {
         //Düþman objesini yok et
-        Destroy(this.gameObject);
+        anim.Play("Dead");
+        
+        Destroy(this.gameObject, 4f);
+        
 
     }
     private void OnDrawGizmosSelected()
